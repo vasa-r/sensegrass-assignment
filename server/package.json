@@ -1,0 +1,19 @@
+{
+  "name": "agri-app-api",
+  "version": "1.0.0",
+  "description": "api for AI powered agri app",
+  "keywords": [
+    "api",
+    "agri",
+    "ai"
+  ],
+  "license": "ISC",
+  "author": "vasa",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx tsc && nodemon ./dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
