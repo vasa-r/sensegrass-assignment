@@ -1,3 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply relative text-white bg-black font-outfit;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md hover:scale-105;
+}
+
+.center {
+  @apply flex items-center justify-center;
+}
+
+.error {
+  @apply text-sm text-red-500;
+}
+
+.hover-menu {
+  @apply relative cursor-pointer hover:text-lightPur;
+}
+
+.hover-menu::after {
+  @apply content-[''] block absolute bottom-0 left-0 h-0.5 bg-lightPur;
+  width: 0%;
+  transition: width 0.3s ease-out;
+}
+
+.hover-menu:hover::after {
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.animate-spin {
+  animation: spin 5s linear infinite;
+}
+
+hr {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.03);
+  --background-color: hsla(0, 0%, 100%, 0.03300000000000003);
+}

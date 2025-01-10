@@ -15,6 +15,11 @@ import USER6 from "../assets/users/user6.png";
 import USER7 from "../assets/users/user7.png";
 import USER8 from "../assets/users/user8.png";
 
+import Leaf from "../assets/white-leaf.png";
+import Truck from "../assets/tractor.png";
+import Tree from "../assets/tree.png";
+import Facility from "../assets/settings.png";
+
 export const navLinks = [
   { name: "Product", to: "/", id: 1 },
   { name: "Help", to: "/", id: 2 },
@@ -246,3 +251,30 @@ export const pricingData = {
     },
   ],
 };
+
+export const benefacts = [
+  {
+    id: 1,
+    img: Leaf,
+    name: "PRODUCTS",
+    count: "100+",
+  },
+  {
+    id: 2,
+    img: Truck,
+    name: "FARMERS",
+    count: "80000+",
+  },
+  {
+    id: 3,
+    img: Tree,
+    name: "ACRES",
+    count: "110000+",
+  },
+  {
+    id: 4,
+    img: Facility,
+    name: "FACILITIES",
+    count: "2",
+  },
+];
