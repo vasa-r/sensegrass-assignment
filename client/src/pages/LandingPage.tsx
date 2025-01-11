@@ -1,13 +1,12 @@
-import React from "react";
-import NavBar from "../components/LandingComponents/NavBar";
-import HeroSection from "../components/LandingComponents/HeroSection";
-import Product from "../components/LandingComponents/Product";
-import Companies from "../components/LandingComponents/Companies";
-import Visualize from "../components/LandingComponents/Visualize";
-import Reviews from "../components/LandingComponents/Reviews";
-import Pricing from "../components/LandingComponents/Pricing";
-import Benefacts from "../components/LandingComponents/Benefacts";
-import Footer from "../components/LandingComponents/Footer";
+import NavBar from "../components/landing/NavBar";
+import HeroSection from "../components/landing/HeroSection";
+import Product from "../components/landing/Product";
+import Companies from "../components/landing/Companies";
+import Visualize from "../components/landing/Visualize";
+import Reviews from "../components/landing/Reviews";
+import Pricing from "../components/landing/Pricing";
+import Benefacts from "../components/landing/Benefacts";
+import Footer from "../components/landing/Footer";
 
 const LandingPage = () => {
   return (

@@ -40,6 +40,9 @@ export default {
           to: { "--border-angle": "360deg" },
         },
       },
+      height: {
+        "btm-height": "calc(100vh - 72px)",
+      },
     },
   },
   plugins: [],

@@ -47,3 +47,33 @@ hr {
   background-color: rgba(255, 255, 255, 0.03);
   --background-color: hsla(0, 0%, 100%, 0.03300000000000003);
 }
+
+.btm-comp {
+  /* @apply w-full h-[calc(100vh - 72px)]; */
+  /* height: calc(100vh- 72px); */
+}
+
+.btn-primary {
+  @apply bg-white/80;
+  background: #4d2ff5;
+}
+
+.card {
+  @apply min-w-[350px] bg-white/5 rounded-xl p-5 border border-white/10 backdrop-blur-md;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+select {
+  @apply w-full px-2 py-2 bg-transparent border-2 rounded-lg outline-none border-white/20;
+}
+
+form label {
+  @apply block my-1 text-base text-white;
+}
+
+.form-group {
+  @apply mb-5;
+}
