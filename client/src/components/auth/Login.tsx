@@ -1,5 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import validateLogin from "../../validations/validateLogin";
+import { toast } from "react-toastify";
+import { loginUser } from "../../api/auth";
 
 interface Initialvalues {
   email: string;
@@ -22,6 +25,39 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const errors = validateLogin(credentials);
+    setFormErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      setIsLoading(true);
+      try {
+        await login();
+      } catch (error) {
+        console.log(error);
+        toast.error("Login failed, please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      toast.error("Please ensure valid info is given");
+    }
+  };
+
+  const login = async () => {
+    try {
+      const response = await loginUser(credentials.email, credentials.password);
+      if (response.success || response.status === 202) {
+        toast.success(response?.data?.message);
+        localStorage.setItem("token", response?.data?.token);
+
+        setCredentials(initialValues);
+      } else {
+        toast.error(response?.data?.message || "Login failed");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred during login. Please try again later.");
+    }
   };
 
   return (
@@ -49,7 +85,7 @@ const Login = () => {
         <div className="">
           <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             value={credentials.password}
