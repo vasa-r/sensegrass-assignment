@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import validateLogin from "../../validations/validateLogin";
 import { toast } from "react-toastify";
 import { loginUser } from "../../api/auth";
+import { useApp } from "../../context/AppContext";
 
 interface Initialvalues {
   email: string;
@@ -17,6 +18,8 @@ const Login = () => {
   const [credentials, setCredentials] = useState<Initialvalues>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<Initialvalues>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { loginContext, setToken } = useApp();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,7 +52,8 @@ const Login = () => {
       if (response.success || response.status === 202) {
         toast.success(response?.data?.message);
         localStorage.setItem("token", response?.data?.token);
-
+        setToken(response?.data?.token);
+        loginContext(response?.data?.token);
         setCredentials(initialValues);
       } else {
         toast.error(response?.data?.message || "Login failed");

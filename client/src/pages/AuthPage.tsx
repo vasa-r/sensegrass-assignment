@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import SignUp from "../components/auth/SignUp";
 import Login from "../components/auth/Login";
 import Logo from "../assets/app-logo.png";
@@ -20,6 +20,7 @@ const AuthPage = () => {
       <Routes>
         <Route path={"/signup"} element={<SignUp />} />
         <Route path={"/login"} element={<Login />} />
+        <Route path="*" element={<Navigate to="/auth/signup" replace />} />
       </Routes>
     </div>
   );
