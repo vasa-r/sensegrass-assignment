@@ -31,5 +31,6 @@ export interface CustomError extends Error {
 }
 
 export interface CustomUserReq extends Request {
-  user?: string | JwtPayload;
+  userId?: string | JwtPayload;
+  role?: string | JwtPayload;
 }

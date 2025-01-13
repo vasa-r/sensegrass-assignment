@@ -3,6 +3,7 @@ import cors from "cors";
 import connectDb from "./config/connectDb";
 import errorHandler from "./middleware/errorHandler";
 import dotenv from "dotenv";
+import userRouter from "./routes/userRoute";
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.get("/ping", (_, res) => {
 
 app.use(express.json());
 app.use(cors());
+
+app.use("/api/user", userRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({
