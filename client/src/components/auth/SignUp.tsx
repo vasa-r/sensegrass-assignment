@@ -1,28 +1,32 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import validateRegister from "../../validations/validateRegister";
+import { toast } from "react-toastify";
+import { registerUser } from "../../api/auth";
 
-interface Initialvalues {
+export interface RegisterUser {
   userName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  role: "admin" | "farmer";
-  verify?: string;
+  role: "admin" | "farmer" | string;
+  referralCode?: string;
 }
 
 const SignUp = () => {
-  const initialValues: Initialvalues = {
+  const initialValues: RegisterUser = {
     userName: "",
     email: "",
     password: "",
     confirmPassword: "",
     role: "farmer",
-    verify: "",
+    referralCode: "",
   };
 
-  const [credentials, setCredentials] = useState<Initialvalues>(initialValues);
-  const [formErrors, setFormErrors] = useState<Partial<Initialvalues>>({});
+  const [credentials, setCredentials] = useState<RegisterUser>(initialValues);
+  const [formErrors, setFormErrors] = useState<Partial<RegisterUser>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -32,12 +36,51 @@ const SignUp = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const errors = validateRegister(credentials);
+    setFormErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      setIsLoading(true);
+      try {
+        await register();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+        // setCredentials(initialValues);
+      }
+    } else {
+      toast.error("Please ensure valid info is given");
+    }
+  };
+
+  const register = async () => {
+    try {
+      const response = await registerUser(
+        credentials.userName,
+        credentials.email,
+        credentials.role,
+        credentials.password,
+        credentials.referralCode
+      );
+
+      if (response.success || response.status === 201) {
+        toast.success(response?.data?.message);
+        setCredentials(initialValues);
+        navigate("/auth/login");
+      } else {
+        toast.error(response?.data?.message || "Registration failed");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred during Sign Up. Please try again later.");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-4 overflow-auto h-btm-height">
+    <div className="flex flex-col items-center justify-center flex-1 w-full gap-4">
       <h1 className="relative text-3xl font-medium md:text-5xl -top-10">
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-btnClr via-cyan-300 to-slate-200">
           Get Started...
@@ -51,7 +94,7 @@ const SignUp = () => {
             id="userName"
             name="userName"
             value={credentials.userName}
-            onChange={() => {}}
+            onChange={handleChange}
             title="user name"
             placeholder="Enter your name"
             autoComplete="off"
@@ -74,7 +117,7 @@ const SignUp = () => {
         <div className="">
           <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             value={credentials.password}
@@ -87,7 +130,7 @@ const SignUp = () => {
         <div className="">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
-            type="text"
+            type="password"
             id="confirmPassword"
             name="confirmPassword"
             value={credentials.confirmPassword}
@@ -112,9 +155,7 @@ const SignUp = () => {
               <option value="admin">Admin</option>
             </select>
 
-            <p className="error">
-              {formErrors?.confirmPassword && formErrors.confirmPassword}
-            </p>
+            <p className="error">{formErrors?.role && formErrors.role}</p>
           </div>
           {credentials.role === "admin" && (
             <div className="w-full">
@@ -123,15 +164,15 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
-                id="verify"
-                name="verify"
-                value={credentials.verify}
+                id="referralCode"
+                name="referralCode"
+                value={credentials.referralCode}
                 onChange={handleChange}
                 title="verify code"
                 placeholder="Enter referral code"
               />
               <p className="error">
-                {formErrors?.confirmPassword && formErrors.confirmPassword}
+                {formErrors?.referralCode && formErrors.referralCode}
               </p>
             </div>
           )}

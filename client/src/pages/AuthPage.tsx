@@ -5,7 +5,7 @@ import Logo from "../assets/app-logo.png";
 
 const AuthPage = () => {
   return (
-    <div className="w-screen h-screen">
+    <div className="flex flex-col w-screen h-screen overflow-y-auto">
       <Link to={"/"} className="flex items-center gap-2 px-8 py-4">
         <img
           src={Logo}
