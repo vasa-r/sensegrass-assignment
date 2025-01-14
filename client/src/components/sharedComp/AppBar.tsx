@@ -4,9 +4,14 @@ import Menu from "../../assets/menu.svg";
 import Arrow from "../../assets/arrow.svg";
 import { useApp } from "../../context/AppContext";
 import { useState } from "react";
-import { btmMenu, menuNav } from "../../utils/constants";
+import { MenuItem } from "../../utils/constants";
 
-const AppBar = () => {
+export interface MenuProp {
+  menu: MenuItem[];
+  btmMenu: MenuItem[];
+}
+
+const AppBar = ({ menu, btmMenu }: MenuProp) => {
   const { user } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
@@ -48,7 +53,7 @@ const AppBar = () => {
             onClick={() => setIsMenuOpen(false)}
           />
           <div className="flex flex-col w-full gap-4 mt-16 text-sm font-medium font-menu">
-            {menuNav.map(({ name, to }) => (
+            {menu.map(({ name, to }) => (
               <div
                 key={name}
                 className="flex items-center justify-between w-full hover-menu"
