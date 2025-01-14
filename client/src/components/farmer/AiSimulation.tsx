@@ -1,4 +1,4 @@
-import Pageloader from "../Loaders/Pageloader";
+import PageLoader from "../Loaders/PageLoader";
 import { getFields } from "../../api/field";
 import { useEffect, useState } from "react";
 import { Field } from "./FarmerHome";
@@ -58,7 +58,7 @@ const AiSimulation = () => {
       <h1 className="text-lg font-medium gradient-txt">
         Select a Field and Click 'Get Insights' to Analyze Soil and Crop Health
       </h1>
-      {isLoading && <Pageloader />}
+      {isLoading && <PageLoader />}
       {!response ? (
         <div className="flex-1 px-8 py-8 overflow-auto rounded-md shadow-card">
           <table className="w-full table-auto">

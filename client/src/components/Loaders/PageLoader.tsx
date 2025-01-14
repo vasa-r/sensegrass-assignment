@@ -1,6 +1,6 @@
 import Logo from "../../assets/app-logo.png";
 
-const Pageloader = () => {
+const PageLoader = () => {
   return (
     <div className="flex items-center justify-center w-full h-full">
       <img src={Logo} alt="logo" className="animate-bounce" />
@@ -8,4 +8,4 @@ const Pageloader = () => {
   );
 };
 
-export default Pageloader;
+export default PageLoader;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Pageloader from "../Loaders/Pageloader";
+import PageLoader from "../Loaders/Pageloader";
 
 interface ParsedSection {
   title: string;
@@ -50,7 +50,7 @@ const AiResponse = ({ response }: AIResponseProps) => {
           </div>
         ))
       ) : (
-        <Pageloader />
+        <PageLoader />
       )}
     </div>
   );
