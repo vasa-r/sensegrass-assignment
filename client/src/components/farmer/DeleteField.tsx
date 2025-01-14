@@ -35,13 +35,13 @@ const DeleteField = ({ showModal, open, id, reset }: DeleteFieldProp) => {
       } else {
         toast.error(
           response?.data?.message ||
-            "Couldn't delete invoice. Please try again later"
+            "Couldn't delete Field data. Please try again later"
         );
       }
     } catch (error) {
       console.log(error);
       toast.error(
-        "An error occurred during deleting invoice. Please try again later."
+        "An error occurred during deleting field. Please try again later."
       );
     }
   };

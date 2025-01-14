@@ -31,7 +31,11 @@ const FarmerDashboard = () => {
 
   //   this is for crop distribution
   const generateCropTypeData = (fields: Field[]) => {
-    const cropCount = fields.reduce<Record<string, number>>((acc, field) => {
+    if (!fields || fields.length === 0) {
+      return [];
+    }
+
+    const cropCount = fields?.reduce<Record<string, number>>((acc, field) => {
       acc[field.cropType] = (acc[field.cropType] || 0) + 1;
       return acc;
     }, {});
@@ -45,28 +49,28 @@ const FarmerDashboard = () => {
   const cropData = generateCropTypeData(fields);
 
   //   field revenue
-  const fieldRevenue = fields.map((field) => ({
+  const fieldRevenue = fields?.map((field) => ({
     x: acresToSqm(Number(field.fieldArea)),
     y: Number(field.revenue),
   }));
 
   //   harvest duration
-  const harvestDuration = fields.map((field) => ({
+  const harvestDuration = fields?.map((field) => ({
     name: field.fieldName,
     planting: dayjs(field.plantingDate).format("YYYY-MM-DD"),
     harvesting: dayjs(field.harvestingDate).format("YYYY-MM-DD"),
   }));
 
   //   revenue by crops
-  const aggregateRevenueByCrop = fields.reduce((acc, field) => {
-    console.log(acc);
-    if (acc[field.cropType]) {
-      acc[field.cropType] += Number(field.revenue);
-    } else {
-      acc[field.cropType] = Number(field.revenue);
-    }
-    return acc;
-  }, {} as { [key: string]: number });
+  const aggregateRevenueByCrop =
+    fields?.reduce((acc, field) => {
+      if (acc[field.cropType]) {
+        acc[field.cropType] += Number(field.revenue);
+      } else {
+        acc[field.cropType] = Number(field.revenue);
+      }
+      return acc;
+    }, {} as { [key: string]: number }) || {};
 
   const cropRevenue = Object.keys(aggregateRevenueByCrop).map((cropType) => ({
     cropType,
@@ -74,13 +78,11 @@ const FarmerDashboard = () => {
   }));
 
   // Soil Data
-  const aggregateSoilTypes = fields.reduce(
-    (acc: { [key: string]: number }, field: Field) => {
+  const aggregateSoilTypes =
+    fields?.reduce((acc: { [key: string]: number }, field: Field) => {
       acc[field.soilType] = (acc[field.soilType] || 0) + 1;
       return acc;
-    },
-    {} as { [key: string]: number }
-  );
+    }, {} as { [key: string]: number }) || {};
 
   const soilData = Object.keys(aggregateSoilTypes).map((soilType) => ({
     soilType,
@@ -88,7 +90,7 @@ const FarmerDashboard = () => {
   }));
 
   //   profit of the fields
-  const ProfitData = fields.map((field: Field) => ({
+  const ProfitData = fields?.map((field: Field) => ({
     fieldName: field.fieldName,
     inputCost: field.inputCost,
     revenue: field.revenue,
@@ -96,7 +98,7 @@ const FarmerDashboard = () => {
   }));
 
   // fields by common location
-  const locationCounts: { location: string; count: number }[] = fields.reduce(
+  const locationCounts: { location: string; count: number }[] = fields?.reduce(
     (acc, field) => {
       const existingLocation = acc.find(
         (item) => item.location === field.location
@@ -110,6 +112,14 @@ const FarmerDashboard = () => {
     },
     [] as { location: string; count: number }[]
   );
+
+  if (!fields) {
+    return (
+      <div className="flex-1 h-full p-6 text-xl font-bold center">
+        No data available yet
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-1 gap-4 px-6 py-4 overflow-y-auto md:py-7 md:pb-4 md:gap-6">

@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoute";
 import fieldRouter from "./routes/fieldRoute";
 import aiInsightRouter from "./routes/aiInsightRoute";
 import paymentRouter from "./routes/paymentRoute";
+import verifyToken from "./middleware/verifyToken";
 
 dotenv.config();
 
@@ -25,9 +26,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/user", userRouter);
-app.use("/api/field", fieldRouter);
+app.use("/api/field", verifyToken, fieldRouter);
 app.use("/api/ai", aiInsightRouter);
-app.use("/api/payment", paymentRouter);
+app.use("/api/payment", verifyToken, paymentRouter);
 
 app.use("*", (_, res) => {
   res.status(404).json({

@@ -12,6 +12,7 @@ const userRoute_1 = __importDefault(require("./routes/userRoute"));
 const fieldRoute_1 = __importDefault(require("./routes/fieldRoute"));
 const aiInsightRoute_1 = __importDefault(require("./routes/aiInsightRoute"));
 const paymentRoute_1 = __importDefault(require("./routes/paymentRoute"));
+const verifyToken_1 = __importDefault(require("./middleware/verifyToken"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
@@ -24,9 +25,9 @@ app.get("/ping", (_, res) => {
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/api/user", userRoute_1.default);
-app.use("/api/field", fieldRoute_1.default);
+app.use("/api/field", verifyToken_1.default, fieldRoute_1.default);
 app.use("/api/ai", aiInsightRoute_1.default);
-app.use("/api/payment", paymentRoute_1.default);
+app.use("/api/payment", verifyToken_1.default, paymentRoute_1.default);
 app.use("*", (_, res) => {
     res.status(404).json({
         success: false,

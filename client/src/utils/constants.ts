@@ -26,6 +26,16 @@ import AI from "../assets/ai.png";
 import Settings from "../assets/settings.png";
 import Pricing from "../assets/pricing.png";
 
+import Users from "../assets/users.png";
+import Fields from "../assets/fields.png";
+import Transactions from "../assets/transactions.png";
+
+export interface MenuItem {
+  name: string;
+  to: string;
+  image: string;
+}
+
 export const navLinks = [
   { name: "Product", to: "/", id: 1 },
   { name: "Help", to: "/", id: 2 },
@@ -33,16 +43,26 @@ export const navLinks = [
   { name: "Twitter", to: "/", id: 4 },
 ];
 
-export const menuNav = [
+export const farmerMenu: MenuItem[] = [
   { name: "Home", image: Home, to: "/farmer" },
   { name: "Dashboard", image: Dash, to: "/farmer/dashboard" },
   { name: "AI Simulate", image: AI, to: "/farmer/ai-simulate" },
   { name: "Pricing", image: Pricing, to: "/farmer/pricing" },
 ];
 
-export const btmMenu = [
+export const adminMenu: MenuItem[] = [
+  { name: "Home", image: Home, to: "/admin" },
+  { name: "Users", image: Users, to: "/admin/users" },
+  { name: "Fields", image: Fields, to: "/admin/fields" },
+  { name: "Transactions", image: Transactions, to: "/admin/transactions" },
+];
+
+export const farmerBtmMenu = [
   { name: "Settings", image: Settings, to: "/farmer/settings" },
-  // { name: "Log Out", image: LogOut },
+];
+
+export const adminBtmMenu = [
+  { name: "Settings", image: Settings, to: "/admin/settings" },
 ];
 
 export const heroSection = {

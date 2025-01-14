@@ -57,18 +57,3 @@ const AiResponse = ({ response }: AIResponseProps) => {
 };
 
 export default AiResponse;
-
-// **1. Soil Health:**
-
-// * **Nutrients:** Clay soils can have low nutrient availability, especially phosphorus and potassium, due to strong cation exchange capacity.  Nutrient testing is crucial.
-// * **Moisture:** Clay soils retain water well but can become waterlogged, hindering root oxygen uptake and promoting disease. Drainage may be needed.
-
-// **2. Crop Health:**
-
-// * **Pests/Diseases:**  Wheat infection warrants immediate identification of the pathogen (fungus, bacteria, virus) to determine appropriate treatment.
-// * **Yield Prediction:**  Severely infected wheat will show significantly reduced yield compared to healthy plants.  The extent of yield loss depends on the infection's severity and stage.
-
-// **3. Recommendations for Improvements:**
-
-// * **Soil Amendment:** Improve soil structure and drainage by incorporating organic matter (compost, manure).
-// * **Disease Management:** Implement integrated pest management (IPM) strategies including resistant varieties, targeted fungicides (if identified), and crop rotation.

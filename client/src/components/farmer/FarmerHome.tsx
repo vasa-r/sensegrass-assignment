@@ -103,9 +103,9 @@ const FarmerHome = () => {
           </h1>
         </div>
         <StatContainer
-          first={fields?.length}
-          second={uniqueCrops}
-          third={totalRevenue}
+          first={fields?.length || 0}
+          second={uniqueCrops || 0}
+          third={totalRevenue || 0}
         />
         <div className="flex items-center gap-3 px-4 py-4 rounded-md md:px-8 shadow-card">
           <button
@@ -142,7 +142,7 @@ const FarmerHome = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredFields.map(
+              {filteredFields?.map(
                 (
                   {
                     fieldName,
@@ -197,7 +197,7 @@ const FarmerHome = () => {
                     </td>
                     <td>
                       <Link
-                        to="/"
+                        to={`/farmer/${_id}`}
                         className="underline hover:text-lightPur underline-offset-2"
                       >
                         Show more
