@@ -63,9 +63,12 @@ const NavBar = () => {
               </Link>
             </li>
           ))}
-          <button className="text-center rounded-md bg-btnClr h-[38px] border border-transparent btn center cursor-pointer ">
+          <Link
+            to={"/auth/login"}
+            className="text-center rounded-md bg-btnClr h-[38px] border border-transparent btn center cursor-pointer "
+          >
             Sign In
-          </button>
+          </Link>
         </ul>
         <div className="md:hidden">
           <img

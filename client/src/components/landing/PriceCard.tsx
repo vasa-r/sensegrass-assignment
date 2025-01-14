@@ -1,5 +1,6 @@
 import { PricingPlan } from "../../utils/constants";
 import Tick from "../../assets/tick.svg";
+import { Link } from "react-router-dom";
 
 const PriceCard = ({
   heading,
@@ -21,9 +22,12 @@ const PriceCard = ({
         </h2>
         <p className="text-sm text-subHead"> {priceDesc}</p>
       </div>
-      <button className="w-full mt-8 text-xl rounded-lg btn bg-btnClr">
+      <Link
+        to="/auth/login"
+        className="w-full mt-8 text-xl rounded-lg btn bg-btnClr"
+      >
         Get Started
-      </button>
+      </Link>
       <hr className="w-full my-4 border-t-2 border-subHead" />
       <div className="flex flex-col gap-3">
         {features.map((feat, id) => (

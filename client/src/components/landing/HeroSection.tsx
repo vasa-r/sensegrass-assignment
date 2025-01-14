@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { heroSection } from "../../utils/constants";
 const HeroSection = () => {
   const { logo, title, subTitle, shortTitle } = heroSection;
@@ -26,9 +27,12 @@ const HeroSection = () => {
           {shortTitle}
         </span>
       </h2>
-      <button className="px-8 py-3 mt-4 font-medium rounded-md bg-btnClr text-largecopy">
+      <Link
+        to="/auth/signup"
+        className="px-8 py-3 mt-4 font-medium rounded-md bg-btnClr text-largecopy"
+      >
         Try Farmlytics for free
-      </button>
+      </Link>
       <p className="relative text-sm text-subHead -top-4">Powered by AI</p>
     </div>
   );
