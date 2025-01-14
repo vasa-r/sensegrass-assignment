@@ -3,6 +3,7 @@ import verifyToken from "../middleware/verifyToken";
 import Field from "../models/fieldModel";
 import { CustomUserReq, statusCode } from "../types/types";
 import isAdmin from "../middleware/isAdmin";
+import validateField from "../middleware/validateNewField";
 
 const fieldRouter = express.Router();
 
@@ -89,59 +90,66 @@ fieldRouter.get("/:id", verifyToken, async (req, res) => {
   }
 });
 
-fieldRouter.post("/create", verifyToken, async (req: CustomUserReq, res) => {
-  try {
-    const { userId } = req;
-    const {
-      fieldName,
-      latitude,
-      longitude,
-      cropType,
-      fieldArea,
-      plantingDate,
-      harvestingDate,
-      soilType,
-      inputCost,
-      revenue,
-      cropHealth,
-    } = req.body;
+fieldRouter.post(
+  "/create",
+  verifyToken,
+  validateField,
+  async (req: CustomUserReq, res) => {
+    try {
+      const { userId } = req;
+      const {
+        fieldName,
+        location,
+        latitude,
+        longitude,
+        cropType,
+        fieldArea,
+        plantingDate,
+        harvestingDate,
+        soilType,
+        inputCost,
+        revenue,
+        cropHealth,
+      } = req.body;
 
-    const createField = await Field.create({
-      fieldName,
-      latitude,
-      longitude,
-      cropType,
-      fieldArea,
-      plantingDate,
-      harvestingDate,
-      soilType,
-      inputCost,
-      revenue,
-      cropHealth,
-      user: userId,
-    });
+      const createField = await Field.create({
+        fieldName,
+        location,
+        latitude,
+        longitude,
+        cropType,
+        fieldArea,
+        plantingDate,
+        harvestingDate,
+        soilType,
+        inputCost,
+        revenue,
+        cropHealth,
+        user: userId,
+      });
 
-    if (!createField) {
-      res.status(statusCode.NOT_IMPLEMENTED).json({
+      if (!createField) {
+        res.status(statusCode.NOT_IMPLEMENTED).json({
+          success: false,
+          message: "Not added. Please try again later",
+        });
+        return;
+      }
+
+      res.status(statusCode.CREATED).json({
+        success: true,
+        message: "Field added successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(statusCode.SERVER_ERROR).json({
         success: false,
-        message: "Not added. Please try again later",
+        message: "Something went wrong while adding field",
       });
       return;
     }
-
-    res.status(statusCode.CREATED).json({
-      success: true,
-      message: "Field added successfully",
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(statusCode.SERVER_ERROR).json({
-      success: false,
-      message: "Something went wrong while adding field",
-    });
-    return;
   }
-});
+);
 
 fieldRouter.put("/update/:id", verifyToken, async (req, res) => {
   try {

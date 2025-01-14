@@ -38,11 +38,11 @@ const verifyToken = (req: CustomUserReq, res: Response, next: NextFunction) => {
 
     const decoded = jwt.verify(token, secret) as JwtPayload;
 
-    console.log(decoded);
+    // console.log(decoded);
     if (decoded && typeof decoded === "object" && decoded.id && decoded.role) {
       req.userId = decoded.id;
       req.role = decoded.role;
-      console.log(req.userId);
+      // console.log(req.userId);
       next();
     } else {
       res.status(statusCode.UNAUTHORIZED).json({

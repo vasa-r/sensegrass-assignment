@@ -25,8 +25,16 @@ const comparePassword = async (password: string, hashedPassword: string) => {
   }
 };
 
-const generateToken = (id: string, role: string) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET as string);
+const generateToken = (
+  id: string,
+  userName: string,
+  email: string,
+  role: string
+) => {
+  return jwt.sign(
+    { id, userName, email, role },
+    process.env.JWT_SECRET as string
+  );
 };
 
 export { generateHashedPassword, comparePassword, generateToken };

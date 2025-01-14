@@ -17,7 +17,7 @@ const PriceCard = ({
       </div>
       <div className="flex flex-col gap-[2px]">
         <h2 className="text-5xl font-semibold">
-          {price} <span className="text-lg text-subHead">/ month</span>
+          {`₹${price}`} <span className="text-lg text-subHead">/ month</span>
         </h2>
         <p className="text-sm text-subHead"> {priceDesc}</p>
       </div>

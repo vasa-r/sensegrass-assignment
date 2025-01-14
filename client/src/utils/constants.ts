@@ -20,11 +20,29 @@ import Truck from "../assets/tractor.png";
 import Tree from "../assets/tree.png";
 import Facility from "../assets/settings.png";
 
+import Home from "../assets/home.png";
+import Dash from "../assets/dash.png";
+import AI from "../assets/ai.png";
+import Settings from "../assets/settings.png";
+import Pricing from "../assets/pricing.png";
+
 export const navLinks = [
   { name: "Product", to: "/", id: 1 },
   { name: "Help", to: "/", id: 2 },
   { name: "Pricing", to: "/", id: 3 },
   { name: "Twitter", to: "/", id: 4 },
+];
+
+export const menuNav = [
+  { name: "Home", image: Home, to: "/farmer" },
+  { name: "Dashboard", image: Dash, to: "/farmer/dashboard" },
+  { name: "AI Simulate", image: AI, to: "/farmer/ai-simulate" },
+  { name: "Pricing", image: Pricing, to: "/farmer/pricing" },
+];
+
+export const btmMenu = [
+  { name: "Settings", image: Settings, to: "/farmer/settings" },
+  // { name: "Log Out", image: LogOut },
 ];
 
 export const heroSection = {
@@ -211,7 +229,7 @@ export const reviewsData = {
 export interface PricingPlan {
   heading: string;
   subHead: string;
-  price: string;
+  price: number;
   priceDesc: string;
   features: string[];
   renewal: string;
@@ -225,7 +243,7 @@ export const pricingData = {
     {
       heading: "Farmlytics",
       subHead: "Simple pricing. All Farmlytics features.",
-      price: "$11",
+      price: 99,
       priceDesc: "Per month billed yearly.",
       features: [
         "All Farmlytics features",
@@ -239,7 +257,7 @@ export const pricingData = {
     {
       heading: "Pay Once",
       subHead: "Your copy forever & one year of updates.",
-      price: "$199",
+      price: 199,
       priceDesc: "One-time payment. Includes one year of updates.",
       features: [
         "All Farmlytics features",
@@ -278,3 +296,28 @@ export const benefacts = [
     count: "2",
   },
 ];
+
+export const parseJwt = (token: string) => {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error("Invalid JWT token", e);
+    return null;
+  }
+};
+
+export const acresToSqm = (acres: number): number => {
+  const sqmPerAcre = 4046.86;
+  return acres * sqmPerAcre;
+};

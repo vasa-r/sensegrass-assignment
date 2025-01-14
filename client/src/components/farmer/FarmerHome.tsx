@@ -8,7 +8,7 @@ import { getFields } from "../../api/field";
 import DeleteField from "./DeleteField";
 import { Link } from "react-router-dom";
 
-interface Field extends FieldType {
+export interface Field extends FieldType {
   _id: string;
   user: string;
   createdAt: string;

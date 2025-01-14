@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 interface IField extends Document {
   fieldName: string;
+  location: string;
   latitude: string;
   longitude: string;
   cropType: string;
@@ -18,6 +19,10 @@ interface IField extends Document {
 const fieldSchema = new Schema<IField>(
   {
     fieldName: {
+      type: String,
+      required: true,
+    },
+    location: {
       type: String,
       required: true,
     },

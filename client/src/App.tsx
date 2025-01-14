@@ -7,6 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import LandingPage from "./pages/LandingPage";
 import FarmerPage from "./pages/FarmerPage";
 import AdminPage from "./pages/AdminPage";
+import PaymentPopup from "./components/farmer/PaymentPopup";
 
 const App = () => {
   const {
@@ -33,6 +34,9 @@ const App = () => {
           />
         )}
 
+        <Route path="/success" element={<PaymentPopup status="success" />} />
+        <Route path="/cancel" element={<PaymentPopup status="cancel" />} />
+
         {/* Protected Routes */}
         <Route
           path="/admin"
@@ -44,7 +48,7 @@ const App = () => {
         />
 
         <Route
-          path="/farmer"
+          path="/farmer/*"
           element={
             <ProtectedRoute roles={["farmer"]}>
               <FarmerPage />

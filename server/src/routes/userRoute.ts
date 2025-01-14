@@ -7,10 +7,12 @@ import {
   generateToken,
 } from "../lib/utils";
 import verifyToken from "../middleware/verifyToken";
+import verifyAdminRegister from "../middleware/verifyAdminRegister";
+import isAdmin from "../middleware/isAdmin";
 
 const userRouter = express.Router();
 
-userRouter.get("/all", verifyToken, async (req, res) => {
+userRouter.get("/all", verifyToken, isAdmin, async (req, res) => {
   try {
     const users = await User.find({}).lean();
 
@@ -67,7 +69,7 @@ userRouter.get("/", verifyToken, async (req: CustomUserReq, res) => {
   }
 });
 
-userRouter.post("/register", async (req, res) => {
+userRouter.post("/register", verifyAdminRegister, async (req, res) => {
   try {
     const { userName, email, role, password } = req.body;
 
@@ -92,7 +94,11 @@ userRouter.post("/register", async (req, res) => {
 
     res.status(statusCode.CREATED).json({
       success: true,
-      message: "User creted successfully",
+      message: `${
+        createUser.role === "admin"
+          ? "You are now authorized admin"
+          : "You are now proud farmlytics farmer"
+      }`,
     });
   } catch (error) {
     console.error(error);
@@ -127,11 +133,13 @@ userRouter.post("/login", async (req, res) => {
       });
     }
 
-    const token = generateToken(user._id, user.role);
+    const token = generateToken(user._id, user.userName, user.email, user.role);
 
     res.status(statusCode.ACCEPTED).json({
       success: true,
-      message: "Login Successful",
+      message: `${
+        user.role === "admin" ? "Welcome back admin" : "Welcome back farmer"
+      }`,
       token,
     });
   } catch (error) {
