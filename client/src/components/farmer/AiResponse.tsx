@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PageLoader from "../Loaders/Pageloader";
+import PageLoader from "../Loaders/PageLoader";
 
 interface ParsedSection {
   title: string;
