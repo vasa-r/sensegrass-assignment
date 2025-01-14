@@ -17,8 +17,6 @@ const registerUser = async (
       referralCode,
     });
 
-    console.log(response);
-
     return {
       success: true,
       data: response.data,
