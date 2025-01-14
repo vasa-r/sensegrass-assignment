@@ -34,7 +34,6 @@ const createField = async (
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
@@ -89,7 +88,6 @@ const updateField = async (
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
@@ -114,7 +112,6 @@ const getFields = async () => {
   try {
     const response = await apiClient.get("/field", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
@@ -138,7 +135,6 @@ const getField = async (id: string) => {
   try {
     const response = await apiClient.get(`/field/${id}`, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
@@ -181,4 +177,34 @@ const deleteField = async (id: string) => {
   }
 };
 
-export { createField, getFields, getField, updateField, deleteField };
+const getAllFields = async () => {
+  try {
+    const response = await apiClient.get("/field/all", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    return {
+      success: true,
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
+    const err = error as AxiosError;
+    return {
+      success: false,
+      data: err.response?.data || "An error occurred",
+      status: err.response?.status || 500,
+    };
+  }
+};
+
+export {
+  createField,
+  getFields,
+  getField,
+  updateField,
+  deleteField,
+  getAllFields,
+};

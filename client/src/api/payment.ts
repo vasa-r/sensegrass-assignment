@@ -12,7 +12,6 @@ const payStripe = async (price: number) => {
         },
       }
     );
-    console.log(response);
 
     return {
       success: true,
@@ -33,7 +32,6 @@ const getAllPayments = async () => {
   try {
     const response = await apiClient.get("/payment/transactions/all", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
@@ -57,7 +55,6 @@ const getUserPayments = async () => {
   try {
     const response = await apiClient.get("/payment/transactions", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
