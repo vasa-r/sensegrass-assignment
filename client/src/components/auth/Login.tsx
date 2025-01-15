@@ -4,6 +4,7 @@ import validateLogin from "../../validations/validateLogin";
 import { toast } from "react-toastify";
 import { loginUser } from "../../api/auth";
 import { useApp } from "../../context/AppContext";
+import Loader from "../Loaders/Loader";
 
 interface Initialvalues {
   email: string;
@@ -100,7 +101,7 @@ const Login = () => {
           <p className="error">{formErrors?.password && formErrors.password}</p>
         </div>
         <button className="btn btn-primary" type="submit" disabled={isLoading}>
-          Login
+          {isLoading ? <Loader width="24px" height="24px" /> : "Login"}
         </button>
         <p className="text-sm text-center">
           New to shoppy?{" "}

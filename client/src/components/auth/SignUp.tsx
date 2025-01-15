@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import validateRegister from "../../validations/validateRegister";
 import { toast } from "react-toastify";
 import { registerUser } from "../../api/auth";
+import Loader from "../Loaders/Loader";
 
 export interface RegisterUser {
   userName: string;
@@ -179,7 +180,7 @@ const SignUp = () => {
         </div>
 
         <button disabled={isLoading} className="btn btn-primary" type="submit">
-          {isLoading ? "Signing... Wait" : "Sign Up"}
+          {isLoading ? <Loader width="24px" height="24px" /> : "Sign Up"}
         </button>
         <p className="text-sm text-center">
           Already have an acoount?{" "}

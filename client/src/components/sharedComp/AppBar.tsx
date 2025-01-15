@@ -12,7 +12,7 @@ export interface MenuProp {
 }
 
 const AppBar = ({ menu, btmMenu }: MenuProp) => {
-  const { user } = useApp();
+  const { user, logoutContext } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
     <div className="flex items-center justify-between px-6 py-4 md:px-10 md:py-4 backdrop-saturate-custom backdrop-blur-custom bg-[rgba(0,0,0,0.867)] w-full border-b-border border-b">
@@ -82,7 +82,10 @@ const AppBar = ({ menu, btmMenu }: MenuProp) => {
               </div>
             ))}
             <div className="flex items-center justify-between w-full hover-menu">
-              <div className="text-lg font-medium text-white hover-menu">
+              <div
+                className="text-lg font-medium text-white hover-menu"
+                onClick={() => logoutContext()}
+              >
                 Logout
               </div>
               <img src={Arrow} alt="navigate" width={20} height={20} />
