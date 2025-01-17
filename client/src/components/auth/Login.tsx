@@ -104,7 +104,7 @@ const Login = () => {
           {isLoading ? <Loader width="24px" height="24px" /> : "Login"}
         </button>
         <p className="text-sm text-center">
-          New to shoppy?{" "}
+          New to Farmlytics?{" "}
           <Link to="/auth/signup" className="underline cursor-pointer">
             SignUp
           </Link>
